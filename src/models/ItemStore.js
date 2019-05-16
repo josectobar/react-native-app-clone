@@ -1,9 +1,25 @@
 import { types } from "mobx-state-tree"
 import Item from "./Items"
 
-const ItemStore = types.model("ItemStore", {
-  items: types.array(Item)
-})
+const ItemStore = types
+  .model("ItemStore", {
+    items: types.array(Item)
+  })
+  .views(self => ({
+    itemsBySearch(search) {
+      return self.items.filter(item => {
+        let { name, category } = item
+        if (
+          name.toLowerCase().includes(search.toLowerCase()) ||
+          category.toLowerCase().includes(search.toLowerCase())
+        ) {
+          return true
+        } else {
+          return false
+        }
+      })
+    }
+  }))
 
 const store = ItemStore.create({
   items: [
@@ -49,11 +65,51 @@ const store = ItemStore.create({
     },
     {
       name: "Guard dog",
-      location: "American Fork",
+      location: "American Fork, UT",
       price: 15,
       category: "Local Experts",
       imageUrl:
         "https://cdn.psychologytoday.com/sites/default/files/styles/article-inline-half/public/field_blog_entry_images/2018-02/vicious_dog_0.png?itok=nsghKOHs"
+    },
+    {
+      name: "Yoga class",
+      location: "Midvale, UT",
+      price: 20,
+      category: "Experiences",
+      imageUrl:
+        "https://images.hellogiggles.com/uploads/2017/09/30002245/yoga-class-e1506781476192.jpg"
+    },
+    {
+      name: "Prosimmon Golf Clubs",
+      location: "Alpine. UT",
+      price: 40,
+      category: "Sporting Equipment",
+      imageUrl:
+        "https://images-na.ssl-images-amazon.com/images/I/61XwqksgbaL._SX425_.jpg"
+    },
+    {
+      name: "Ridge Outdoor Changing Shower",
+      location: "Orem, UT",
+      price: 10,
+      category: "Outdoor Gear",
+      imageUrl:
+        "https://images-na.ssl-images-amazon.com/images/I/71TrPo%2Bs71L._SX425_.jpg"
+    },
+    {
+      name: "Outdoor Cookware Cast Iron",
+      location: "Provo, UT",
+      price: 20,
+      category: "Outdoor Gear",
+      imageUrl:
+        "https://i5.walmartimages.com/asr/e21cd42f-cc0d-41f5-9dfd-500e68bb0a7e_1.173272447247156a8fa35d9d2658fb28.jpeg"
+    },
+    {
+      name: "Trail Guard Bear Spray",
+      location: "Lindon, UT",
+      price: 30,
+      category: "Outdoor Gear",
+      imageUrl:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Bear_attack_deterrent_spray.jpg/220px-Bear_attack_deterrent_spray.jpg"
     }
   ]
 })

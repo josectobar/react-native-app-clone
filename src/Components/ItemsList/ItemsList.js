@@ -7,17 +7,31 @@ import {
   View,
   Image
 } from "react-native"
+import { observer, inject } from "mobx-react"
 import ItemCard from "../ItemCard/ItemCard"
 
 class ItemsList extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { items: [] }
+    this.state = {
+      items: [],
+      search: ""
+    }
   }
   componentDidUpdate(prevProps, props) {
-    if (prevProps.items.length !== props.items.length) {
-      this.setState({ items: this.props.items })
+    if (prevProps.search !== props.search) {
+      this.setState({
+        search: this.props.search
+      })
+      this.handleSearch(this.state.search)
     }
+  }
+
+  handleSearch = search => {
+    const results = this.props.store.itemsBySearch(search)
+    this.setState({
+      items: results
+    })
   }
 
   render() {
@@ -29,9 +43,9 @@ class ItemsList extends React.Component {
     return (
       <FlatList
         contentContainerStyle={{
-          flex: 1,
+          // flex: 1,
           flexDirection: "column",
-          height: "100%",
+          // height: 587,
           width: "100%"
         }}
         numColumns={2}
@@ -47,12 +61,15 @@ class ItemsList extends React.Component {
             />
           </View>
         )}
+        // onEndReached={() => this.props.handlePagination(this.state.page)}
+        // onEndReachedThreshold={0.5}
+        // initialNumToRender={6}
       />
     )
   }
 }
 
-export default ItemsList
+export default inject("store")(observer(ItemsList))
 
 const styles = StyleSheet.create({
   itemContainer: {

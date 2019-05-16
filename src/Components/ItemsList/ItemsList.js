@@ -15,23 +15,34 @@ class ItemsList extends React.Component {
     super(props)
     this.state = {
       items: [],
-      search: ""
+      search: "",
+      page: 0
     }
   }
   componentDidUpdate(prevProps, props) {
+    const page = 1
     if (prevProps.search !== props.search) {
       this.setState({
-        search: this.props.search
+        search: this.props.search,
+        page: 1
       })
-      this.handleSearch(this.state.search)
+      this.handleSearch(this.state.search, page)
     }
   }
 
-  handleSearch = search => {
-    const results = this.props.store.itemsBySearch(search)
+  handleSearch = (search, page) => {
+    const results = this.props.store.itemsBySearch(search, page)
     this.setState({
-      items: results
+      items: page === 1 ? results : [...this.state.items, ...results]
     })
+  }
+
+  handlePagination = () => {
+    if (this.state.items.length >= 4) {
+      const page = this.state.page + 1
+      this.handleSearch(this.state.search, page)
+      this.setState({ page: page })
+    }
   }
 
   render() {
@@ -43,13 +54,12 @@ class ItemsList extends React.Component {
     return (
       <FlatList
         contentContainerStyle={{
-          // flex: 1,
           flexDirection: "column",
-          // height: 587,
           width: "100%"
         }}
         numColumns={2}
         data={items}
+        extraData={this.state.search}
         keyExtractor={item => item.name}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
@@ -61,9 +71,9 @@ class ItemsList extends React.Component {
             />
           </View>
         )}
-        // onEndReached={() => this.props.handlePagination(this.state.page)}
-        // onEndReachedThreshold={0.5}
-        // initialNumToRender={6}
+        onEndReached={this.handlePagination}
+        onEndReachedThreshold={0.5}
+        initialNumToRender={4}
       />
     )
   }

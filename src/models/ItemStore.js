@@ -6,18 +6,24 @@ const ItemStore = types
     items: types.array(Item)
   })
   .views(self => ({
-    itemsBySearch(search) {
-      return self.items.filter(item => {
+    itemsBySearch(search, page) {
+      let indexStart = page * 4 - 4
+      let indexEnd = page * 4
+      results = self.items.filter(item => {
         let { name, category } = item
         if (
           name.toLowerCase().includes(search.toLowerCase()) ||
           category.toLowerCase().includes(search.toLowerCase())
         ) {
           return true
-        } else {
-          return false
         }
+        return false
       })
+      if (results.length <= 4 && results.length > 0) {
+        return results
+      } else if (results.length > 4) {
+        return results.slice(indexStart, indexEnd)
+      }
     }
   }))
 
@@ -110,6 +116,38 @@ const store = ItemStore.create({
       category: "Outdoor Gear",
       imageUrl:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Bear_attack_deterrent_spray.jpg/220px-Bear_attack_deterrent_spray.jpg"
+    },
+    {
+      name: "Heimplanet The Cave Tent",
+      location: "Provo, UT",
+      price: 40,
+      category: "Outdoor Gear",
+      imageUrl:
+        "https://cdn3.thegrommet.com/media/catalog/product/cache/1/image/473x355/9df78eab33525d08d6e5fb8d27136e95/2/5/2522-S-101_BST.jpg"
+    },
+    {
+      name: "Knight Outdoor backpack",
+      location: "Salem, UT",
+      price: 20,
+      category: "Outdoor Gear",
+      imageUrl:
+        "https://images.prod.meredith.com/product/5ffa026079e11e109628ddee4bccc8fd/1524089805152/l/60l-unisex-free-knight-outdoor-waterproof-hiking-camping-backpack-green"
+    },
+    {
+      name: "Stealth Angel Compact Survival kit",
+      location: "Spanish Fork, UT",
+      price: 10,
+      category: "Outdoor Gear",
+      imageUrl:
+        "https://www.picclickimg.com/00/s/MTIwMFgxNjAw/z/tOEAAOSwMsVcrMPg/$/Stealth-Angel-Survival-Tactical-Kit-in-Case-_57.jpg"
+    },
+    {
+      name: "Waterproof Survival kit",
+      location: "Payson, UT",
+      price: 5,
+      category: "Outdoor Gear",
+      imageUrl:
+        "https://i5.walmartimages.com/asr/ea437094-62b8-41f2-916d-b7e78c6f69c3_1.bb0634c548b122be5440689586f0f60f.jpeg"
     }
   ]
 })

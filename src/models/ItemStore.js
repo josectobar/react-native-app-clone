@@ -9,7 +9,7 @@ const ItemStore = types
     itemsBySearch(search, page) {
       let indexStart = page * 4 - 4
       let indexEnd = page * 4
-      results = self.items.filter(item => {
+      let results = self.items.filter(item => {
         let { name, category } = item
         if (
           name.toLowerCase().includes(search.toLowerCase()) ||

@@ -1,13 +1,25 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "transform": {
+    "\\.js$": "<rootDir>/node_modules/babel-jest"
+  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "test": "jest"
+    "test": "node_modules/.bin/jest"
   },
   "dependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-codingitwrong": "^0.1.4",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jest": "^22.5.1",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
     "expo": "^32.0.0",
     "mobx": "^5.9.4",
     "mobx-react": "^5.4.3",
@@ -17,10 +29,10 @@
     "react-navigation": "^3.9.1"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
+    "babel-jest": "^24.8.0",
+    "babel-preset-expo": "^5.0.0",
+    "jest-expo": "32.0.0",
+    "react-test-renderer": "^16.8.6"
   },
-  "private": true,
-  "jest": {
-    "preset": "react-native"
-  }
+  "private": true
 }

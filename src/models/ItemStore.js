@@ -24,6 +24,7 @@ const ItemStore = types
       } else if (results.length > 4) {
         return results.slice(indexStart, indexEnd)
       }
+      return []
     }
   }))
 

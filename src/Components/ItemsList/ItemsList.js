@@ -1,12 +1,5 @@
 import React from "react"
-import {
-  FlatList,
-  StyleSheet,
-  AppRegistry,
-  Text,
-  View,
-  Image
-} from "react-native"
+import { FlatList, StyleSheet, AppRegistry, View } from "react-native"
 import { observer, inject } from "mobx-react"
 import ItemCard from "../ItemCard/ItemCard"
 

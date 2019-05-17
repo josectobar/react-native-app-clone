@@ -27,7 +27,7 @@ const ItemStore = types
     }
   }))
 
-const store = ItemStore.create({
+export const store = ItemStore.create({
   items: [
     {
       name: "Mountain Bike",
@@ -152,4 +152,4 @@ const store = ItemStore.create({
   ]
 })
 
-export default store
+export default ItemStore

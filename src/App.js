@@ -2,7 +2,7 @@ import React from "react"
 import SearchField from "./Components/SearchField/SearchField"
 import { StyleSheet, Text, View, Image } from "react-native"
 import { Provider } from "mobx-react"
-import store from "./models/ItemStore"
+import { store } from "./models/ItemStore"
 
 export default class App extends React.Component {
   render() {

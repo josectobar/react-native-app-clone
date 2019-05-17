@@ -1,4 +1,4 @@
-import ItemStore from "./models/ItemStore"
+import ItemStore from "../src/models/ItemStore"
 
 test("Items type match item tree model", () => {
   const initialItem = {

@@ -7,7 +7,10 @@ import {
   View,
   FlatList
 } from "react-native"
+import { SearchBar } from "react-native-elements"
 import ItemsList from "../ItemsList/ItemsList.js"
+import CategoriesNav from "../CategoriesNav/CategoriesNav.js"
+import Icon from "react-native-vector-icons/FontAwesome"
 
 class SearchField extends Component {
   constructor(props) {
@@ -24,6 +27,7 @@ class SearchField extends Component {
           placeholder="search.."
           onChangeText={text => this.setState({ text: text })}
         />
+        {/* <CategoriesNav search={this.state.text} /> */}
         <ItemsList style={styles.searchResult} search={this.state.text} />
       </View>
     )

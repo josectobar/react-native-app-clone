@@ -14,6 +14,7 @@
     "test": "node_modules/.bin/jest"
   },
   "dependencies": {
+    "@fortawesome/free-regular-svg-icons": "^5.8.2",
     "eslint": "^5.16.0",
     "eslint-config-codingitwrong": "^0.1.4",
     "eslint-plugin-import": "^2.17.2",
@@ -26,6 +27,8 @@
     "mobx-state-tree": "^3.14.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-elements": "^1.1.0",
+    "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.9.1"
   },
   "devDependencies": {

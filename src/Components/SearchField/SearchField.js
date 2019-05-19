@@ -1,16 +1,6 @@
 import React, { Component } from "react"
-import {
-  StyleSheet,
-  AppRegistry,
-  Text,
-  TextInput,
-  View,
-  FlatList
-} from "react-native"
-import { SearchBar } from "react-native-elements"
+import { StyleSheet, AppRegistry, TextInput, View } from "react-native"
 import ItemsList from "../ItemsList/ItemsList.js"
-import CategoriesNav from "../CategoriesNav/CategoriesNav.js"
-import Icon from "react-native-vector-icons/FontAwesome"
 
 class SearchField extends Component {
   constructor(props) {

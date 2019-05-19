@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     color: "#3a3a3a",
     marginLeft: 5,
-    marginBottom: 5,
+    marginBottom: 15,
     width: "100%"
   },
   textFocus: {

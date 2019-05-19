@@ -109,7 +109,7 @@ class ItemsList extends React.Component {
         }}
       >
         <CategoriesNav
-          styles={{ width: "100%" }}
+          styles={{ width: "100%", marginBottom: 40 }}
           handleClearCategory={this.handleClearCategory}
           handleToggle={this.handleToggle}
           toggleCategory={toggleCategory}

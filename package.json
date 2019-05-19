@@ -14,6 +14,7 @@
     "test": "node_modules/.bin/jest"
   },
   "dependencies": {
+    "@fortawesome/free-regular-svg-icons": "^5.8.2",
     "eslint": "^5.16.0",
     "eslint-config-codingitwrong": "^0.1.4",
     "eslint-plugin-import": "^2.17.2",

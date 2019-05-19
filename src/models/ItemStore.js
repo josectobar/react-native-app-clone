@@ -38,6 +38,26 @@ const ItemStore = types
         return results.slice(indexStart, indexEnd)
       }
       return []
+    },
+    ItemsBySearchCategory(search, categoryName, page) {
+      let indexStart = page * 4 - 4
+      let indexEnd = page * 4
+      let results = self.items.filter(item => {
+        let { name, category } = item
+        if (
+          name.toLowerCase().includes(search.toLowerCase()) &&
+          category.toLowerCase() === categoryName.toLowerCase()
+        ) {
+          return true
+        }
+        return false
+      })
+      if (results.length <= 4 && results.length > 0) {
+        return results
+      } else if (results.length > 4) {
+        return results.slice(indexStart, indexEnd)
+      }
+      return []
     }
   }))
 

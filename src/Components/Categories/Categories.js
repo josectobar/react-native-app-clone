@@ -7,18 +7,10 @@ import {
   TouchableOpacity
 } from "react-native"
 import Icon from "react-native-vector-icons/FontAwesome"
-
 class SearchField extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      text: ""
-    }
-  }
-
   handleSelection = (search, page) => {
     this.props.handleCategorySearch(search, page)
-    this.props.handleToggle()
+    this.props.handleToggle(search)
   }
 
   render() {
@@ -35,14 +27,14 @@ class SearchField extends Component {
           onPress={() => this.handleSelection("Outdoor Gear", 1)}
           style={styles.button}
         >
-          <Icon name="user-secret" size={30} color="black" />
+          <Icon name="sun-o" size={30} color="black" />
           <Text style={styles.categoryText}>Outdoor Gear</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => this.handleSelection("Electronics", 1)}
           style={styles.button}
         >
-          <Icon name="user-secret" size={30} color="black" />
+          <Icon name="tv" size={30} color="black" />
           <Text style={styles.categoryText}>Electronics</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -56,7 +48,7 @@ class SearchField extends Component {
           onPress={() => this.handleSelection("Sporting Equipment", 1)}
           style={styles.button}
         >
-          <Icon name="user-secret" size={30} color="black" />
+          <Icon name="dribbble" size={30} color="black" />
           <Text style={styles.categoryText}>Sporting Equipment</Text>
         </TouchableOpacity>
       </View>

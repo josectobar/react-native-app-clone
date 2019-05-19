@@ -5,7 +5,8 @@ import {
   AppRegistry,
   View,
   Text,
-  Button
+  Button,
+  TextInput
 } from "react-native"
 import { observer, inject } from "mobx-react"
 import ItemCard from "../ItemCard/ItemCard"
@@ -29,9 +30,17 @@ class ItemsList extends React.Component {
       this.setState({
         search: this.props.search,
         page: 1,
-        categoryName: ""
+        toggleCategory: false
       })
-      this.handleSearch(this.state.search, page)
+      if (this.state.categoryName === "") {
+        this.handleSearch(this.state.search, page)
+      } else {
+        this.handleItemSearchByCategory(
+          this.state.search,
+          this.state.categoryName,
+          page
+        )
+      }
     }
   }
 
@@ -41,6 +50,18 @@ class ItemsList extends React.Component {
       items: page === 1 ? results : [...this.state.items, ...results]
     })
   }
+
+  handleItemSearchByCategory = (search, categoryName, page) => {
+    const results = this.props.store.ItemsBySearchCategory(
+      search,
+      categoryName,
+      page
+    )
+    this.setState({
+      items: page === 1 ? results : [...this.state.items, ...results]
+    })
+  }
+
   handleCategorySearch = (categorySearch, page) => {
     const results = this.props.store.itemsByCategory(categorySearch, page)
     this.setState({
@@ -56,7 +77,6 @@ class ItemsList extends React.Component {
       categoryName: "",
       toggleCategory: true
     })
-    // this.handleSearch(this.state.search, 1)
   }
 
   handlePagination = () => {
@@ -71,48 +91,56 @@ class ItemsList extends React.Component {
     }
   }
 
-  handleToggle = () => {
-    console.log(`hit@`)
-    // const { toggleCategory } = this.state
-    this.setState({ toggleCategory: false })
+  handleToggle = categoryName => {
+    this.setState({ toggleCategory: false, categoryName: categoryName })
   }
 
   render() {
-    if (this.state.items.length === 0) {
-      return (
-        <View>
-          <CategoriesNav
-            handleToggle={this.handleToggle}
-            itemsLength={this.state.items.length}
-            toggleCategory={this.state.toggleCategory}
-          />
-          {this.state.search === "" ? (
-            <Categories
-              handleToggle={this.handleToggle}
-              handleCategorySearch={this.handleCategorySearch}
-            />
-          ) : (
-            <Text>"No Results"</Text>
-          )}
-        </View>
-      )
+    const { items, search, categoryName, toggleCategory } = this.state
+    if (items.length > 0) {
+      const image_url = { uri: items[0].imageUrl }
     }
-    const { items } = this.state
-    const image_url = { uri: items[0].imageUrl }
     return (
-      <>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
         <CategoriesNav
+          styles={{ width: "100%" }}
+          handleClearCategory={this.handleClearCategory}
           handleToggle={this.handleToggle}
-          toggleCategory={this.state.toggleCategory}
+          toggleCategory={toggleCategory}
           itemsLength={items.length}
+          categoryName={categoryName}
         />
-        {this.state.categoryName !== "" && (
+        {toggleCategory && (
+          <Categories
+            handleToggle={this.handleToggle}
+            handleCategorySearch={this.handleCategorySearch}
+          />
+        )}
+        {categoryName !== "" && (
           <Button
             onPress={this.handleClearCategory}
             title="CLEAR CATEGORY"
             color="gray"
             accessibilityLabel="Clear category filter"
           />
+        )}
+        {search !== "" && items.length === 0 && !toggleCategory && (
+          <Text
+            style={{
+              textAlign: "center",
+              width: 200,
+              marginTop: 50,
+              fontSize: 15
+            }}
+          >
+            No Results
+          </Text>
         )}
         <FlatList
           contentContainerStyle={{
@@ -121,7 +149,7 @@ class ItemsList extends React.Component {
           }}
           numColumns={2}
           data={items}
-          extraData={this.state.search}
+          extraData={search}
           keyExtractor={item => item.name}
           renderItem={({ item }) => (
             <View style={styles.itemContainer}>
@@ -138,7 +166,7 @@ class ItemsList extends React.Component {
           onEndReachedThreshold={0.1}
           initialNumToRender={4}
         />
-      </>
+      </View>
     )
   }
 }

@@ -12,7 +12,7 @@ describe("MST view should only return those items that match keyword by category
           "https://trek.scene7.com/is/image/TrekBicycleProducts/Remedy8275_19_24480_A_Primary?$responsive-pjpg$&cache=on,on&wid=1920&hei=1440"
       },
       {
-        name: "Unmanned aerial vehicle",
+        name: "Unmanned aerial 'Jumping' vehicle",
         location: "Provo, UT",
         price: 100,
         category: "electronics",
@@ -29,9 +29,9 @@ describe("MST view should only return those items that match keyword by category
       }
     ]
   }
-  it("should return 1 item that match the keyword", () => {
+  it("should return 1 item that match the 'bike' keyword", () => {
     const itemStore = ItemStore.create(initialItem)
-    const keyword = "outdoor gear"
+    const keyword = "bike"
     const page = 1
     const result = itemStore.itemsBySearch(keyword, page)
     expect(result.length).toBe(1)
@@ -40,7 +40,7 @@ describe("MST view should only return those items that match keyword by category
     const itemStore = ItemStore.create(initialItem)
     const keyword = "outdoor gear"
     const page = 1
-    const result = itemStore.itemsBySearch(keyword, page)
+    const result = itemStore.itemsByCategory(keyword, page)
     expect(result[0].category).toBe("Outdoor Gear")
   })
   it("should match keyword by name", () => {
@@ -49,5 +49,13 @@ describe("MST view should only return those items that match keyword by category
     const page = 1
     const result = itemStore.itemsBySearch(keyword, page)
     expect(result[0].name).toBe("Mountain Bike")
+  })
+  it("should match keyword 'Jump' by name and category 'electronics'", () => {
+    const itemStore = ItemStore.create(initialItem)
+    const keyword = "jump"
+    const category = "electronics"
+    const page = 1
+    const result = itemStore.ItemsBySearchCategory(keyword, category, page)
+    expect(result[0].name).toBe("Unmanned aerial 'Jumping' vehicle")
   })
 })
